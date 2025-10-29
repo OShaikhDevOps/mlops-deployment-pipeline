@@ -7,3 +7,7 @@ mlflow==2.6.0
 dvc==2.45.0
 prometheus-client==0.16.0
 pytest==7.4.2
+
+# Dev/test extras (optional). Install only when needed:
+# pip install -r requirements.txt
+# pip install fastapi[all]  # if you plan to run the API locally

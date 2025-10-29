@@ -4,8 +4,8 @@ from src import train
 
 
 def test_train_creates_model(tmp_path):
-    # Run training (uses sklearn iris) and confirm model is written
-    train.train_and_log()
+    # Run quick training (pure-Python) to avoid heavy compiled deps in CI/local
+    train.train_and_log(quick=True)
     model_path = os.path.join(os.path.dirname(__file__), "..", "models", "model.pkl")
     assert os.path.exists(model_path)
     # try loading the model
