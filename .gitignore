@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+.models/
+models/
+mlruns/
+.dvc/
+.vscode/
+.terraform/
+*.tfstate
+*.tfstate.*
+.DS_Store
+.env

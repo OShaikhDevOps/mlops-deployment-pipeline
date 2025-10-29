@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  app:
+    build: ../
+    container_name: mlops_app
+    ports:
+      - "8000:8000"
+    environment:
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
+    depends_on:
+      - mlflow
+
+  mlflow:
+    image: mlfloworg/mlflow:2.6.0
+    container_name: mlflow_server
+    command: mlflow server --backend-store-uri file:/mlflow/mlruns --default-artifact-root /mlflow/artifacts --host 0.0.0.0 --port 5000
+    ports:
+      - "5000:5000"
+    volumes:
+      - ../mlflow:/mlflow
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ../../monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    depends_on:
+      - app
+
+  grafana:
+    image: grafana/grafana:9.0.0
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../../monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ../../monitoring/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+
+# This compose file runs a local development stack: the model-serving app, an MLflow tracking server,
+# Prometheus for metrics scraping, and Grafana for dashboards. Tune volumes, persistence and auth for production.

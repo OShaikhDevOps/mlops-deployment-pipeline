@@ -1,0 +1,9 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'mlops-app'
+    static_configs:
+      - targets: ['app:8000', 'mlflow:5000']
+
+# When running via docker-compose the service names above (app, mlflow) are resolvable.

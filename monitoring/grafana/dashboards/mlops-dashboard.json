@@ -1,0 +1,23 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "ML Model Monitoring",
+    "panels": [
+      {
+        "type": "graph",
+        "title": "Prediction Requests",
+        "targets": [
+          { "expr": "prediction_requests_total", "legendFormat": "requests" }
+        ]
+      },
+      {
+        "type": "stat",
+        "title": "Last Model Accuracy",
+        "targets": [
+          { "expr": "last_model_accuracy", "legendFormat": "accuracy" }
+        ]
+      }
+    ]
+  },
+  "overwrite": true
+}
